@@ -1,0 +1,13 @@
+- @question.each do |question|
+  %form{:action => ""}
+    Q: #{question.title}
+    %br/
+    - question.answers.each do |answer|
+      %input{:id => "answer#{answer.id}", :name => "answer", :type => "radio", :value => "#{answer.id}"}/
+      %label{:for => "answer#{answer.id}"}
+      = answer.text
+      = answer.value
+      %br/
+    = link_to "edit", edit_question_path(question)
+    = link_to "show", question
+= link_to "new", new_question_path

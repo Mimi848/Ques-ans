@@ -1,0 +1,11 @@
+%h1
+  Q: #{@question.title}
+%br/
+%ul
+  - @question.answers.each do |answer|
+    %li= answer.text
+    %ul
+      %li= answer.value
+= link_to "All Questions", questions_path
+= link_to "Delete Question", @question, method: "delete", data: { confirm: "Are you sure?" }
+= link_to "edit", edit_question_path

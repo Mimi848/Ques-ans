@@ -1,0 +1,10 @@
+= simple_form_for @question do |f|
+  = f.input :title
+  = f.input :formula
+  %h3 Answers
+  #tasks
+    = f.simple_fields_for :answers do |answer|
+      = render 'answer_fields', f: answer
+    .links
+      = link_to_add_association 'add answer', f, :answers
+  = f.submit
