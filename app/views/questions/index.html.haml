@@ -8,26 +8,21 @@
             %span{ class: "badge badge-info"}Q:
             =question.title
           %br/
-        -# %div{class: ".btn-group.btn-group-toggle ", :data-toggle => "buttons"}
-        -#   - question.answers.each do |answer|
-        -#     %label{:for => "answer#{answer.id}", class: "btn btn-secondary active" }
-        -#       %input{:id => "answer#{answer.id}", :name => "answer", :type => "radio", :autocomplete => "off", :value => "#{answer.id}"}/
-        -#       = answer.text
-        -#       Value is :
-        -#       = answer.value
-        -#       %br/
         %div{class: ".btn-group.btn-group-toggle ", :data-toggle => "buttons"}
           - question.answers.each do |answer|
             %label{:for => "answer#{answer.id}", class: "btn btn-secondary" }
-              %input{:id => "answer#{answer.id}", :name => "answer", :type => "radio", :class => "myClass", :autocomplete => "off", :value => "#{answer.id}"}
+              %input{:id => "answer#{answer.id}", :name => "#{question.id}", :type => "radio", :class => "myClass", :autocomplete => "off", :value => "#{answer.id}"}
               = answer.text
               %br/
-              -if((answer.id % 2) == 1 )
-                %div{class: "order-msg msg-first #{answer.id}"}
-                  =@order.first.name
-              -else
-                %div{class: "order-msg msg-second #{answer.id}"}
-                  =@order.last.name
+            -# -if((answer.id % 2) == 1 )
+            -#   %div{class: "order-msg msg-first #{answer.id}"}
+            -#     =@order.first.name
+            -# -else
+            -#   %div{class: "order-msg msg-second d-none #{answer.id}"}
+            -#   =@order.last.name
+          %div{class: "order-msg #{question.id} alert alert-#{'a' == 's' ? 'success' : 'danger' }",  data: { source: "#{question.id}" } }
+            = 'A' === '2' ? @order.first.name : @order.last.name
+
           .container.btn-group
             = link_to "show", question, class: "btn btn-primary "
             = link_to "edit", edit_question_path(question), class: "btn btn-info mx-auto"
