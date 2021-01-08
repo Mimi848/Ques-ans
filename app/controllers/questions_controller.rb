@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
 
   def index
-    @question = Question.all
+    @questions = Question.all
+    @order = Order.all
   end
 
   def new
@@ -27,9 +28,9 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    if @question.update_attributes(params[:question])
-      flash[:success] = "Object was successfully updated"
-      redirect_to @object
+    if @question.update(question_params)
+      flash[:success] = "question was successfully updated"
+      redirect_to @question
     else
       flash[:error] = "Something went wrong"
       render 'edit'
@@ -47,6 +48,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :formula, answers_attributes: [:id, :text, :value, :_destroy])
+    params.require(:question).permit(:title, :variable, answers_attributes: [:id, :text, :value, :_destroy])
   end
 end
