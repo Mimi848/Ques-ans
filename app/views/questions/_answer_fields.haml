@@ -1,4 +1,4 @@
 .nested-fields
-  = f.input :text
-  = f.input :value
-  = link_to_remove_association "remove answer", f
+  = f.input :text, input_html: {class: "form-control"}
+  = f.input :value, input_html: {class: "form-control"}
+  = link_to_remove_association "remove answer", f, class: "badge badge-danger"

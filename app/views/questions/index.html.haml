@@ -3,20 +3,18 @@
   - @questions.each do |question|
     .card.card-body.mb-4
       %form{:action => ""}
-        .mb-4
-          .display-4.d-inline
-            %span{ class: "badge badge-info"}Q:
-            =question.title
-          %br/
-        %div{class: ".btn-group.btn-group-toggle ", :data-toggle => "buttons"}
-          - question.answers.each do |answer|
+        .display-4.d-inline
+          %span{ class: "badge badge-info"}Q
+          %div=question.title
+        %br/
+        %div{class: ".btn-group.btn-group-toggle "}
+          - question.answers.each_with_index do |answer, i|
             %label{:for => "answer#{answer.id}", class: "btn btn-secondary" }
-              %input{:id => "answer#{answer.id}", :name => "#{question.id}", :type => "radio", :class => "answer-option", :autocomplete => "off", :value => "#{answer.id}", data: { question: question.id }}
+              %input{:id => "answer#{answer.id}", :name => "#{question.id}", :type => "radio", :class => "answer-option", :autocomplete => "off", :value => "#{answer.id}", data: { question: question.to_json(), answer: answer.to_json() , order: i === 0 ? @order.first.name : @order.last.name }}
               = answer.text
               %br/
-          %div{class: "order-msg #{question.id} alert alert-#{'a' == 's' ? 'success' : 'danger' }",  data: { source: "#{question.id}" } }
-            = 'A' === '2' ? @order.first.name : @order.last.name
-          .container.btn-group
-            = link_to "show", question, class: "btn btn-primary "
-            = link_to "edit", edit_question_path(question), class: "btn btn-info mx-auto"
-            = link_to "Delete Question", question_path(question), data: { method: :delete, confirm: "Are you sure?" }, class: " btn btn-danger mx-auto"
+        %div{class: "order-msg #{question.id} alert ",  data: { source: "#{question.id}"} }
+        .container.btn-group
+          = link_to "show", question, class: "btn btn-primary "
+          = link_to "edit", edit_question_path(question), class: "btn btn-info mx-auto"
+          = link_to "Delete Question", question_path(question), data: { method: :delete, confirm: "Are you sure?" }, class: " btn btn-danger"

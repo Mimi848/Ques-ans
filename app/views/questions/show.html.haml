@@ -1,11 +1,17 @@
-%h1
-  Q: #{@question.title}
-%br/
-%ul
-  - @question.answers.each do |answer|
-    %li= answer.text
-    %ul
-      %li= answer.value
-= link_to "All Questions", questions_path
-= link_to "Delete Question", @question, method: "delete", data: { confirm: "Are you sure?" }
-= link_to "edit", edit_question_path
+.container.text-center.mt-4
+  %h1
+    Q: #{@question.title}
+  %br/
+  %ol.list-group
+    - @question.answers.each do |answer|
+      %li.list-group-item
+        .badge.badge-dark
+          answer:
+        = answer.text
+        .badge.badge-dark
+          value:
+        = answer.value
+  .container.btn-group
+    = link_to "All Questions", questions_path, class: "btn btn-primary"
+    = link_to "edit", edit_question_path, class: "btn btn-info"
+    = link_to "Delete Question", @question, data: { method: :delete, confirm: "Are you sure?" }, class: " btn btn-danger mx-auto"
