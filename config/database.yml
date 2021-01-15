@@ -24,7 +24,7 @@ default: &default
 
 development:
   <<: *default
-  database: myapp_development
+  database: db/development
 
 
 # Warning: The database defined as "test" will be erased and
@@ -32,8 +32,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: myapp_test
+  database: db/test
 
 production:
   <<: *default
-  database: db/myapp_production
+  database: db/production
